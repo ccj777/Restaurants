@@ -26,9 +26,9 @@ app.get('/restaurants/:id', (req, res) => {
 
 // 搜尋功能
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword.toLowerCase()
-  const restaurants = restaurantList.filter(restaurant => { return restaurant.name.toLowerCase().includes(keyword) })
-  res.render('index', { restaurants })
+  const keyword = req.query.keyword
+  const restaurants = restaurantList.filter(restaurant => { return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) })
+  res.render('index', { restaurants, keyword })
 })
 
 app.listen(port, () => {
