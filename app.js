@@ -2,22 +2,34 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json').results
-
+const mongoose = require('mongoose')
+const db = mongoose.connection
 const port = 3000
 
 // set view engine
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }))
+
 app.set('view engine', 'handlebars')
 
 // set static files
 app.use(express.static('public'))
 
+//set mongoose
+mongoose.connect(process.env.MONGODB_URI_2, { useNewUrlParser: true, useUnifiedTopology: true })
+
+db.on('error', error => {
+  console.log(error)
+})
+
+db.once('open', () => {
+  console.log('mongodb connected.')
+})
+
 app.get('/', (req, res) => {
   res.render('index', { restaurants: restaurantList })
 })
-
 
 app.get('/restaurants/:id', (req, res) => {
   const restaurant = restaurantList.find(restaurant => restaurant.id === Number(req.params.id))
