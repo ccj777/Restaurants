@@ -6,6 +6,9 @@ const mongoose = require('mongoose')
 const db = mongoose.connection
 const port = 3000
 
+//models
+const Restaurant = require("./models/Restaurant")
+
 // set view engine
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
@@ -28,7 +31,12 @@ db.once('open', () => {
 })
 
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList })
+  Restaurant.find()
+    .lean()
+    .then(restaurantsData => {
+      res.render('index', { restaurantsData })
+    })
+    .catch(error => console.log(error))
 })
 
 app.get('/restaurants/:id', (req, res) => {
