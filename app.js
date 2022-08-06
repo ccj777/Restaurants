@@ -52,6 +52,7 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//detail 頁面
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -61,6 +62,35 @@ app.get('/restaurants/:id', (req, res) => {
     })
     .catch(error => console.log(error))
 })
+
+// edit頁面
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => {
+      res.render('edit', { restaurant })
+    })
+    .catch(error => console.log(error))
+})
+
+//edit頁面POST
+app.post('/restaurants/:id/edit', (req, res) => {git
+  const id = req.params.id
+  const keys = Object.keys(req.body)
+  Restaurant.findById(id)
+    .then(restaurantData => {
+      for (let key of keys) {
+        restaurantData[key] = req.body[key]
+      }
+      return restaurantData.save()
+    })
+    .then(() => {
+      res.redirect(`/restaurants/${id}`)
+    })
+    .catch(error => console.log(error))
+})
+
 
 // 搜尋功能
 app.get('/search', (req, res) => {
