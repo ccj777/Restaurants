@@ -18,6 +18,7 @@ app.set('view engine', 'handlebars')
 
 // set static files
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 
 //set mongoose
 mongoose.connect(process.env.MONGODB_URI_2, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -39,8 +40,19 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//新增餐廳頁面
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+
+// 新增餐廳
+app.post('/restaurants', (req, res) => {
+  return Restaurant.create(req.body)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.get('/restaurants/:id', (req, res) => {
-  // const restaurant = restaurantList.find(restaurant => restaurant.id === Number(req.params.id))
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
@@ -56,6 +68,8 @@ app.get('/search', (req, res) => {
   const restaurants = restaurantList.filter(restaurant => { return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) })
   res.render('index', { restaurants, keyword })
 })
+
+
 
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`)
