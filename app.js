@@ -40,8 +40,14 @@ app.get('/', (req, res) => {
 })
 
 app.get('/restaurants/:id', (req, res) => {
-  const restaurant = restaurantList.find(restaurant => restaurant.id === Number(req.params.id))
-  res.render('show', { restaurant })
+  // const restaurant = restaurantList.find(restaurant => restaurant.id === Number(req.params.id))
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => {
+      res.render('show', { restaurant })
+    })
+    .catch(error => console.log(error))
 })
 
 // 搜尋功能
