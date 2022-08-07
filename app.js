@@ -103,9 +103,22 @@ app.post('/restaurants/:id/delete', (req, res) => {
 
 // 搜尋功能
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantList.filter(restaurant => { return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) })
-  res.render('index', { restaurants, keyword })
+  const keywords = req.query.keywords
+  const keyword = keywords.trim().toLowerCase()
+
+  if (!req.query.keywords) {
+    res.redirect("/")
+  }
+
+  Restaurant.find()
+    .lean()
+    .then(restaurantsData => {
+      const filteredRestaurantsData = restaurantsData.filter(data =>
+        data.name.toLowerCase().includes(keyword)
+      )
+      res.render("index", { restaurantsData: filteredRestaurantsData, keywords })
+    })
+    .catch(error => console.log(error))
 })
 
 
