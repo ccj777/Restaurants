@@ -76,7 +76,6 @@ app.get('/restaurants/:id/edit', (req, res) => {
 
 //edit頁面POST
 app.post('/restaurants/:id/edit', (req, res) => {
-  git
   const id = req.params.id
   const keys = Object.keys(req.body)
   Restaurant.findById(id)
