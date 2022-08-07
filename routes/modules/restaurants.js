@@ -40,8 +40,8 @@ router.get('/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//edit頁面POST
-router.post('/:id/edit', (req, res) => {
+//edit
+router.put('/:id', (req, res) => {
   const id = req.params.id
   const keys = Object.keys(req.body)
   Restaurant.findById(id)
@@ -58,7 +58,7 @@ router.post('/:id/edit', (req, res) => {
 })
 
 // 刪除餐廳
-router.post('/:id/delete', (req, res) => {
+router.delete('/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .then(restaurantData => restaurantData.remove())

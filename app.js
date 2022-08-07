@@ -1,12 +1,12 @@
 const express = require('express')
-const app = express()
 const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
 const routes = require('./routes')
 require('./config/mongoose')
 
 const port = 3000
 
-
+const app = express()
 
 // set view engine
 app.engine('handlebars', exphbs({
@@ -18,6 +18,7 @@ app.set('view engine', 'handlebars')
 // set static files
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 app.use(routes)
 
