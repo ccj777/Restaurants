@@ -1,35 +1,35 @@
 <!-- search bar -->
 <div class="container search-bar">
-  <div class="row">
-    <div class="col-4">
-      <div class="search-bar-outer ">
-        <div class="search-bar-inner">
-          <form action="/search">
+  <form action="/search">
+    <div class="row">
+      <div class="col-4">
+        <div class="search-bar-outer ">
+          <div class="search-bar-inner">
             <h4 class="mb-2">尋找餐廳：</h4>
             <div class="input-group">
               <input type="text" name="keywords" class="form-control" placeholder="輸入餐廳、分類"
-                aria-label="Restaurant Name..." value="{{{keywords}}}" aria-describedby="search-button" required>
+                aria-label="Restaurant Name..." {{#if keywords}}value="{{{keywords}}}"
+                {{/if}}aria-describedby="search-button">
               <div class="input-group-append">
                 <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-4"></div>
-    <div class="col-4">
-      <div class="input-group">
-        <select class="form-control" id="sort" name="sort">
-          <option>A > Z</option>
-          <option>Z > A</option>
-          <option>類別</option>
-          <option>地區</option>
-        </select>
+      <div class="col-5"></div>
+      <div class="col-3">
+            <select class="form-control" id="sort" name="sort" onchange="this.form.submit()">
+              <option value="asc" {{#if optionSelected.asc }}selected{{/if}}>A > Z</option>
+              <option value="desc" {{#if optionSelected.desc }}selected{{/if}}>Z > A</option>
+              <option value="category" {{#if optionSelected.category }}selected{{/if}}>類別</option>
+              <option value="location" {{#if optionSelected.location }}selected{{/if}}>地區</option>
+            </select>
       </div>
+
     </div>
 
-  </div>
+  </form>
 
 </div>
 
