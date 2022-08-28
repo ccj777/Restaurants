@@ -2,6 +2,7 @@ const express = require('express')
 const User = require('../../models/user')
 const router = express.Router()
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
 
 // login頁面
 router.get('/login', (req, res) => {
@@ -53,13 +54,16 @@ router.post('/register', (req, res) => {
         })
       }
       // 如果沒有，寫入資料
-      return User.create({
-        name,
-        email,
-        password
-      })
-        .then(() => res.redirect('/'))
-        .catch(error => console.log(error))
+      return bcrypt
+        .genSalt(10) // 產生「鹽」，並設定複雜度係數為 10
+        .then(salt => bcrypt.hash(password, salt)) // 為使用者密碼「加鹽」，產生雜湊值
+        .then(hash => User.create({
+          name,
+          email,
+          password: hash
+        })
+          .then(() => res.redirect('/'))
+          .catch(error => console.log(error)))
 
     })
 })
