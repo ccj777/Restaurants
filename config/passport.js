@@ -24,7 +24,6 @@ module.exports = app => {
 
   // 序列化
   passport.serializeUser((user, done) => {
-    console.log(user)
     done(null, user.id)
   })
   // 反序列化
