@@ -3,7 +3,7 @@
 ![Index page about Restaurant List](./public/images/img.png)
 
 ## 介紹
-簡易的餐廳清單，包含餐廳詳細資料和搜尋功能
+簡易的餐廳清單，包含餐廳詳細資料和搜尋功能，可註冊自己的帳號
 
 ### 功能
 - 列出所有餐廳
@@ -12,6 +12,8 @@
 - 新增餐廳功能
 - 修改餐廳資料功能
 - 刪除餐廳功能
+- 以信箱或Facebook註冊帳號，建立專屬的餐廳清單
+- 密碼以加密形式儲存於資料庫
 
 ## 開始使用
 
@@ -51,3 +53,7 @@
 - Express-session1.17.3
 - Passport: 0.4.1
 - Passport-local: 1.0.0
+- Passport-facebook: 3.0.0
+- Bcryptjs: 2.4.3,
+- Connect-flash: 0.1.1
+- Dotenv: 8.2.0
