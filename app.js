@@ -10,6 +10,8 @@ const port = 3000
 
 const app = express()
 
+const usePassport = require('./config/passport')
+
 // set view engine
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
@@ -26,6 +28,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+usePassport(app)
 
 app.use(routes)
 

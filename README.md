@@ -45,7 +45,9 @@
 
 - Node.js 14.16.0
 - Express 4.16.4
-- Express-Handlebars 3.0.0
+- Express-handlebars 3.0.0
 - Bootstrap 4.3.1
 - Mongoose 5.9.7
-- Express-session1.17.3"
+- Express-session1.17.3
+- Passport: 0.4.1
+- Passport-local: 1.0.0
