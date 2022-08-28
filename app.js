@@ -25,7 +25,15 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
 usePassport(app)
+
+// 用res.locals存登入狀態和使用者資料
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated
+  res.locals.user = req.user
+  next()
+})
 
 app.use(routes)
 
