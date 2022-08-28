@@ -48,3 +48,4 @@
 - Express-Handlebars 3.0.0
 - Bootstrap 4.3.1
 - Mongoose 5.9.7
+- Express-session1.17.3"
