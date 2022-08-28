@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "name": "User1",
+      "email": "user1@example.com",
+      "password": "12345678",
+      "restaurant_index": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "User2",
+      "email": "user2@example.com",
+      "password": "12345678",
+      "restaurant_index": [
+        3,
+        4,
+        5
+      ]
+    }
+  ]
+}
