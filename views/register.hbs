@@ -3,6 +3,8 @@
     <div class="card card-body">
       <h1 class="text-center mt-3 mb-4">Register</h1>
 
+      {{> message}}
+
       <form action="/users/register" method="POST">
         <div class="mb-3">
           <label for="name">Name</label>
@@ -21,9 +23,9 @@
         </div>
 
         <div class="mb-3">
-          <label for="conformPassword">Conform Password</label>
-          <input type="password" id="conformPassword" name="conformPassword" class="form-control"
-            placeholder="Conform Password" value="{{conformPassword}}">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
+            placeholder="Confirm Password" value="{{confirmPassword}}">
         </div>
 
         <div class="d-grid gap-3 mt-4">
