@@ -13,6 +13,7 @@ router.get('/new', (req, res) => {
 
 // 新增餐廳
 router.post('', (req, res) => {
+  req.body.userId = req.user._id
   return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
@@ -20,8 +21,10 @@ router.post('', (req, res) => {
 
 // 瀏覽指定餐聽頁面 
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  
+  return Restaurant.findOne({_id, userId})
     .lean()
     .then(restaurant => {
       res.render('show', { restaurant })
@@ -31,8 +34,10 @@ router.get('/:id', (req, res) => {
 
 // edit頁面
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => {
       res.render('edit', { restaurant })
@@ -42,9 +47,10 @@ router.get('/:id/edit', (req, res) => {
 
 //edit
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const keys = Object.keys(req.body)
-  Restaurant.findById(id)
+  Restaurant.findOne({ _id, userId })
     .then(restaurantData => {
       for (let key of keys) {
         restaurantData[key] = req.body[key]
@@ -52,15 +58,16 @@ router.put('/:id', (req, res) => {
       return restaurantData.save()
     })
     .then(() => {
-      res.redirect(`/restaurants/${id}`)
+      res.redirect(`/restaurants/${_id}`)
     })
     .catch(error => console.log(error))
 })
 
 // 刪除餐廳
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  Restaurant.findOne({ _id, userId })
     .then(restaurantData => restaurantData.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

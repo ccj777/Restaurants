@@ -7,7 +7,9 @@ const Restaurant = require("../../models/Restaurant")
 
 // 定義首頁路由
 router.get('/', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+
+  Restaurant.find({ userId })
     .lean()
     .then(restaurantsData => {
       res.render('index', { restaurantsData })
@@ -17,7 +19,7 @@ router.get('/', (req, res) => {
 
 // 搜尋功能包含&排序功能
 router.get('/search', (req, res) => {
-
+  const userId = req.user._id
   const keywords = req.query.keywords
   const keyword = keywords.trim().toLowerCase()
   const sort = req.query.sort
@@ -53,7 +55,7 @@ router.get('/search', (req, res) => {
 
   // 未輸入關鍵字時
   if (!keywords) {
-    return Restaurant.find()
+    return Restaurant.find({ userId })
       .lean()
       .sort(sortMode)
       .then(restaurantsData => {
@@ -62,7 +64,7 @@ router.get('/search', (req, res) => {
       .catch(error => console.log(error))
   }
 
-  Restaurant.find()
+  Restaurant.find({ userId })
     .lean()
     .sort(sortMode)
     .then(restaurantsData => {
