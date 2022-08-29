@@ -10,7 +10,7 @@ module.exports = app => {
   app.use(passport.session())
 
   // local strategy
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) {

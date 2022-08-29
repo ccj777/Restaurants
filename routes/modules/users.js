@@ -6,13 +6,15 @@ const bcrypt = require('bcryptjs')
 
 // login頁面
 router.get('/login', (req, res) => {
-  res.render('login')
+  const error = req.flash('error')
+  res.render('login', { login_error: error[0] })
 })
 
 // login POST
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/login',
+  failureFlash: true
 }))
 
 // register頁面
